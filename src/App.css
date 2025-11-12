@@ -1,38 +1,157 @@
-.App {
+/* --- Global & Font --- */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Main Layout --- */
+.react-flow-wrapper {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: #fdfdfd;
+}
+
+.react-flow-container {
+  flex-grow: 1;
+  position: relative;
+}
+
+/* --- Sidebar (Polished) --- */
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  padding: 20px;
+  border-right: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Adds space between form elements */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.02);
+}
+
+.sidebar h3 {
+  margin: 0 0 10px 0;
+  text-align: center;
+  color: #333;
+}
+
+.sidebar .sidebar-description {
+  color: #777;
+  font-style: italic;
+  font-size: 0.9em;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sidebar label {
+  font-weight: 600;
+  color: #555;
+  font-size: 0.9em;
+  margin-bottom: -5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.sidebar input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box; /* Important for 100% width */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.sidebar input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.sidebar button {
+  padding: 12px;
+  background-color: #007bff;
   color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1em;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
-.App-link {
-  color: #61dafb;
+.sidebar button:hover {
+  background-color: #0056b3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sidebar button:active {
+  transform: scale(0.98);
+}
+
+/* Our new delete button */
+.sidebar .delete-button {
+  background-color: #dc3545;
+}
+
+.sidebar .delete-button:hover {
+  background-color: #c82333;
+}
+
+/* --- React Flow Canvas --- */
+.react-flow-container .reactflow-wrapper {
+  background-color: #f7faff;
+  background-image: linear-gradient(#eef2f7 1px, transparent 1px),
+    linear-gradient(90deg, #eef2f7 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* --- Custom Node Styles --- */
+.reactflow-node {
+  background: #ffffff !important;
+  border: 1px solid #b0b0b0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+  padding: 10px 15px !important;
+  color: #333 !important;
+  font-weight: 500 !important;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+/* Style for selected nodes */
+.reactflow-node.selected {
+  border: 2px solid #007bff !important;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2) !important;
+}
+
+/* --- Custom Edge Styles --- */
+.reactflow-edge path {
+  stroke: #b0b0b0 !important;
+  stroke-width: 2 !important;
+}
+
+/* --- 'Add Node' Button (Polished) --- */
+.add-node-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  padding: 10px 15px;
+  background-image: linear-gradient(to right, #007bff 0%, #0056b3 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.add-node-button:hover {
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.add-node-button:active {
+  transform: translateY(0);
 }
