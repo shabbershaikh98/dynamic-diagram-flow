@@ -1,4 +1,3 @@
-/* --- Global & Font --- */
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
@@ -7,29 +6,35 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 /* --- Main Layout --- */
+
+/* This is the root container for the whole app */
 .react-flow-wrapper {
-  display: flex;
+  display: flex; /* This puts the sidebar and diagram side-by-side */
   width: 100vw;
   height: 100vh;
   background: #fdfdfd;
 }
 
+/* This holds the React Flow canvas */
 .react-flow-container {
-  flex-grow: 1;
-  position: relative;
+  flex-grow: 1; /* This makes it take up all remaining space */
+  position: relative; /* So we can position the 'Add Node' button inside it */
 }
 
+
 /* --- Sidebar (Polished) --- */
+
 .sidebar {
-  width: 280px;
-  flex-shrink: 0;
+  width: 280px; /* Fixed width for the sidebar */
+  flex-shrink: 0; /* Don't let it shrink */
   padding: 20px;
   border-right: 1px solid #e0e0e0;
   background-color: #f9f9f9;
   display: flex;
-  flex-direction: column;
-  gap: 15px; /* Adds space between form elements */
+  flex-direction: column; /* Stack form elements vertically */
+  gap: 15px; /* Adds nice space between form elements */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.02);
 }
 
@@ -39,6 +44,7 @@ body {
   color: #333;
 }
 
+/* The "Select a node..." message */
 .sidebar .sidebar-description {
   color: #777;
   font-style: italic;
@@ -56,19 +62,21 @@ body {
 .sidebar input {
   width: 100%;
   padding: 10px;
-  box-sizing: border-box; /* Important for 100% width */
+  box-sizing: border-box; /* Makes 'width: 100%' behave correctly */
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1em;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* Nice focus ring when typing in the input */
 .sidebar input:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
 }
 
+/* Base style for all buttons in the sidebar */
 .sidebar button {
   padding: 12px;
   background-color: #007bff;
@@ -85,57 +93,40 @@ body {
   background-color: #0056b3;
 }
 
+/* A little "press" effect */
 .sidebar button:active {
   transform: scale(0.98);
 }
 
-/* Our new delete button */
+/* Our special "Delete" button */
 .sidebar .delete-button {
-  background-color: #dc3545;
+  background-color: #dc3545; /* Red! */
 }
 
 .sidebar .delete-button:hover {
   background-color: #c82333;
 }
 
+
 /* --- React Flow Canvas --- */
+
+/* This styles the <ReactFlow> component itself */
 .react-flow-container .reactflow-wrapper {
+  /* This creates the nice grid background */
   background-color: #f7faff;
   background-image: linear-gradient(#eef2f7 1px, transparent 1px),
     linear-gradient(90deg, #eef2f7 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
-/* --- Custom Node Styles --- */
-.reactflow-node {
-  background: #ffffff !important;
-  border: 1px solid #b0b0b0 !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
-  padding: 10px 15px !important;
-  color: #333 !important;
-  font-weight: 500 !important;
-  transition: box-shadow 0.2s, border-color 0.2s;
-}
-
-/* Style for selected nodes */
-.reactflow-node.selected {
-  border: 2px solid #007bff !important;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2) !important;
-}
-
-/* --- Custom Edge Styles --- */
-.reactflow-edge path {
-  stroke: #b0b0b0 !important;
-  stroke-width: 2 !important;
-}
-
 /* --- 'Add Node' Button (Polished) --- */
+
 .add-node-button {
-  position: absolute;
+  position: absolute; /* Position *inside* the react-flow-container */
   top: 20px;
   left: 20px;
-  z-index: 10;
+  z-index: 10; /* Make sure it's on top of the diagram */
+  
   padding: 10px 15px;
   background-image: linear-gradient(to right, #007bff 0%, #0056b3 100%);
   color: white;
@@ -149,9 +140,56 @@ body {
 
 .add-node-button:hover {
   box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
-  transform: translateY(-2px);
+  transform: translateY(-2px); /* A little "lift" effect */
 }
 
 .add-node-button:active {
   transform: translateY(0);
+}
+
+
+/* --- Custom Node --- */
+/* TODO: Maybe add different styles for input/output nodes? */
+
+.reactflow-node {
+  /* Overriding the default React Flow styles */
+  background: #ffffff !important;
+  border: 1px solid #b0b0b0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+  padding: 10px 15px !important;
+  color: #333 !important;
+  font-weight: 500 !important;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+/* A special style for when a node is selected */
+/* This was the edit for the animation */
+.reactflow-node.selected {
+  border: 2px solid #007bff !important;
+  /* Use our new 'pulse' animation! */
+  animation: pulse 1.5s infinite;
+}
+
+
+/* --- Custom Edge --- */
+
+.reactflow-edge path {
+  stroke: #b0b0b0 !important;
+  stroke-width: 2 !important;
+}
+
+
+/* --- PULSE ANIMATION --- */
+/* This is the new animation we added */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(0, 123, 255, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  }
 }
